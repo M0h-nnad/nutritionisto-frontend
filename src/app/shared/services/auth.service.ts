@@ -1,0 +1,122 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { environment } from 'src/environments/environment';
+import { BehaviorSubject, catchError, first, throwError } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class AuthService {
+  private isAuth: boolean = false;
+  private isAuthSubject = new BehaviorSubject<boolean>(false);
+  private tokenTimer!: ReturnType<typeof setTimeout>;
+
+  constructor(
+    private readonly http: HttpClient,
+    private readonly cookieService: CookieService,
+    private readonly router: Router
+  ) {}
+  isAuthStatus() {
+    return this.isAuth;
+  }
+
+  isAuthListener() {
+    return this.isAuthSubject.asObservable();
+  }
+
+  returnToken() {
+    return this.cookieService.get('token');
+  }
+
+  login(body: { email: string; password: string }, type: string) {
+    return this.http
+      .post(
+        environment.mainUrl + environment.auth + environment.login + `/${type}`,
+        body
+      )
+      .pipe(
+        first(),
+        catchError((err) => throwError(() => err))
+      );
+  }
+
+  signup(body: any, type: string) {
+    return this.http
+      .post(
+        environment.mainUrl +
+          environment.auth +
+          environment.signup +
+          `/${type}`,
+        body
+      )
+      .pipe(
+        first(),
+        catchError((err) => throwError(() => err))
+      );
+  }
+
+  saveAuthData(token: string) {
+    this.cookieService.set('token', token, {
+      secure: true,
+    });
+  }
+
+  clearAuthData() {
+    this.cookieService.deleteAll();
+  }
+
+  getAuthData() {
+    const token = this.cookieService.get('token');
+    // const expirationDate = this.cookieService.get('expirationDate');
+    // const userCheck = this.cookieService.check('userDoc');
+    // const userDoc = this.cookieService.get('userDoc');
+    // const addresses = this.cookieService.get('addresses');
+
+    // if (!token || !expirationDate || !userCheck) {
+    //   return;
+    // }
+
+    if (!token) {
+        return;
+    }
+
+    return {
+      token,
+      // expirationDate: new Date(expirationDate),
+      // userDoc: JSON.parse(userDoc),
+      // addresses: addresses ? JSON.parse(addresses) : '',
+    };
+  }
+
+  autoAuthUser() {
+    const authInformation = this.getAuthData();
+    if (!authInformation) {
+      return;
+    }
+    // const now = new Date();
+    // const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
+
+    // if (expiresIn > 0) {
+      this.isAuth = true;
+      // this.setAuthTime(expiresIn / 1000);
+      this.isAuthSubject.next(true);
+    // }
+    return;
+  }
+
+  logout() {
+    this.isAuth = false;
+    this.isAuthSubject.next(false);
+    this.clearAuthData();
+    clearTimeout(this.tokenTimer);
+    this.router.navigate(['/login']);
+  }
+
+  setAuthTime(durationInMin: number) {
+    setTimeout(() => {
+      this.logout();
+    }, durationInMin * 1000);
+  }
+}
