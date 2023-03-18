@@ -1,0 +1,155 @@
+<div class="container mt-5">
+  <div class="row justify-content-center mt-4">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h4>Input Inbody Data</h4>
+        </div>
+        <form [formGroup]="inbodyForm" (ngSubmit)="onSubmit()">
+          <div class="form-group row">
+            <label for="height" class="col-sm-3 col-form-label"
+              >Height (cm)</label
+            >
+            <div class="col-sm-9">
+              <input
+                type="number"
+                class="form-control"
+                id="height"
+                formControlName="height"
+                placeholder="Enter height"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="
+                  inbodyForm.get('height')?.invalid &&
+                  (inbodyForm.get('height')?.dirty ||
+                    inbodyForm.get('height')?.touched)
+                "
+              >
+                <div *ngIf="inbodyForm.get('height')?.errors?.required">
+                  Height is required
+                </div>
+                <div *ngIf="inbodyForm.get('height')?.errors?.pattern">
+                  Invalid height value
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="weight" class="col-sm-3 col-form-label"
+              >Weight (kg)</label
+            >
+            <div class="col-sm-9">
+              <input
+                type="number"
+                class="form-control"
+                id="weight"
+                formControlName="weight"
+                placeholder="Enter weight"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="
+                  inbodyForm.get('weight')?.invalid &&
+                  (inbodyForm.get('weight')?.dirty ||
+                    inbodyForm.get('weight')?.touched)
+                "
+              >
+                <div *ngIf="inbodyForm.get('weight')?.errors?.required">
+                  Weight is required
+                </div>
+                <div *ngIf="inbodyForm.get('weight')?.errors?.pattern">
+                  Invalid weight value
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="bodyFat" class="col-sm-3 col-form-label"
+              >Body Fat (%)</label
+            >
+            <div class="col-sm-9">
+              <input
+                type="number"
+                class="form-control"
+                id="bodyFat"
+                formControlName="bodyFat"
+                placeholder="Enter body fat"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="
+                  inbodyForm.get('bodyFat')?.invalid &&
+                  (inbodyForm.get('bodyFat')?.dirty ||
+                    inbodyForm.get('bodyFat')?.touched)
+                "
+              >
+                <div *ngIf="inbodyForm.get('bodyFat')?.errors?.required">
+                  Body fat is required
+                </div>
+                <div *ngIf="inbodyForm.get('bodyFat')?.errors?.pattern">
+                  Invalid body fat value
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="leanMass" class="col-sm-3 col-form-label"
+              >Lean Mass (kg)</label
+            >
+            <div class="col-sm-9">
+              <input
+                type="number"
+                class="form-control"
+                id="leanMass"
+                formControlName="leanMass"
+                placeholder="Enter lean mass"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="
+                  inbodyForm.get('leanMass')?.invalid &&
+                  (inbodyForm.get('leanMass')?.dirty ||
+                    inbodyForm.get('leanMass')?.touched)
+                "
+              >
+                <div *ngIf="inbodyForm.get('leanMass')?.errors?.required">
+                  Lean mass is required
+                </div>
+                <div *ngIf="inbodyForm.get('leanMass')?.errors?.pattern">
+                  Invalid lean mass value
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="date">Date</label>
+            <input
+              type="date"
+              formControlName="date"
+              class="form-control"
+              id="date"
+              placeholder="Enter Date"
+            />
+            <div
+              class="invalid-feedback"
+              *ngIf="inbodyForm.get('date')?.errors"
+            >
+              <div *ngIf="inbodyForm.get('date')?.errors?.required">
+                Date is required
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

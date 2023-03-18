@@ -4,4 +4,9 @@ export const environment = {
   auth: '/auth',
   login: '/login',
   signup: '/signup',
+  inbody: '/inbody',
+  getUsersInbody: '/allInbodies',
+  createInbody: '/',
+  updateInbody: '/',
+  deleteInbody: '/',
 };

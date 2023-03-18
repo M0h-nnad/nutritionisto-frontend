@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService } from 'src/app/shared/services/auth.service';
+import { AuthService } from 'src/app/shared/services/services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -12,9 +13,10 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private authService: AuthService,
-    private toastrService: ToastrService
+    private readonly formBuilder: FormBuilder,
+    private readonly authService: AuthService,
+    private readonly toastrService: ToastrService,
+    private readonly router: Router
   ) {}
 
   ngOnInit(): void {
@@ -26,13 +28,13 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.warn(this.loginForm.value);
     if (this.loginForm.valid) {
       this.authService
         .login(this.loginForm.value, this.loginForm.value.userType)
         .subscribe({
           next: (res: any) => {
-            console.info(res.message);
+            if (this.loginForm.value.userType === 'user')
+              this.router.navigate(['submit-inbody']);
             this.authService.saveAuthData(res.token);
           },
           error: (error) => {
