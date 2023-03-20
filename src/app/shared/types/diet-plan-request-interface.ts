@@ -1,3 +1,4 @@
+import { Inbody } from './inbody.types';
 import { Nutritionist } from './nutritionist.interface';
 import { User } from './user.interface';
 export interface DietPlanRequest {
@@ -8,4 +9,5 @@ export interface DietPlanRequest {
   completedAt: Date | null;
   user: User;
   assignedNutritionist: Nutritionist;
+  inbody: Inbody;
 }

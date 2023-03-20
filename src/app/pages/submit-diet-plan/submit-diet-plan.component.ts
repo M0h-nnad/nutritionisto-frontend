@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { DietPlanService } from 'src/app/shared/services/diet-plan/diet-plan.service';
-import { DietPlan } from 'src/app/shared/types';
+import { DietPlan, Inbody } from 'src/app/shared/types';
 
 @Component({
   selector: 'app-submit-diet-plan',
@@ -14,6 +14,7 @@ export class SubmitDietPlanComponent implements OnInit {
   dietPlanForm!: FormGroup;
   dietPlanRequestId!: number | null | string;
   userId!: number | null | string;
+  inbody!: Inbody;
   constructor(
     private fb: FormBuilder,
     private readonly dietPlanService: DietPlanService,
@@ -24,7 +25,16 @@ export class SubmitDietPlanComponent implements OnInit {
   ngOnInit(): void {
     this.dietPlanRequestId = this.activatedRoute.snapshot.paramMap.get('id');
     this.userId = this.activatedRoute.snapshot.paramMap.get('userId');
-    if (this.dietPlanRequestId === null || this.userId === null) return;
+    this.activatedRoute.queryParams.subscribe(
+      (val: any) => (this.inbody = val as Inbody)
+    );
+    console.log(this.inbody);
+    if (
+      this.dietPlanRequestId === null ||
+      this.userId === null ||
+      this.inbody === null
+    )
+      return;
     this.dietPlanRequestId = +this.dietPlanRequestId;
     this.userId = +this.userId;
     this.createDietPlanForm();
