@@ -26,5 +26,4 @@ export class DietRequestsComponent implements OnInit {
     );
   }
 
-  selectRequest(req: any) {}
 }

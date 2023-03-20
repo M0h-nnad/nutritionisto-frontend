@@ -13,6 +13,7 @@ import { SubmitInbodyComponent } from './pages/submit-inbody/submit-inbody.compo
 import { TokenInterceptor } from './shared/interceptors/auth-intercepter.service';
 import { DietRequestsComponent } from './pages/diet-requests/diet-requests.component';
 import { SubmitDietPlanComponent } from './pages/submit-diet-plan/submit-diet-plan.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { SubmitDietPlanComponent } from './pages/submit-diet-plan/submit-diet-pl
     NgbModule,
     ReactiveFormsModule,
     HttpClientModule,
+    RouterModule,
     ToastrModule.forRoot(),
   ],
   providers: [

@@ -15,6 +15,8 @@ export const environment = {
   deleteInbody: '/',
   dietPlanRequest: '/diet-plan-request',
   getDietPlanRequest: '/',
+  dietPlan: '/diet-plan',
+  createDietPlan: '',
 };
 
 /*
