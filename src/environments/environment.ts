@@ -13,6 +13,8 @@ export const environment = {
   createInbody: '/',
   updateInbody: '/',
   deleteInbody: '/',
+  dietPlanRequest: '/diet-plan-request',
+  getDietPlanRequest: '/',
 };
 
 /*

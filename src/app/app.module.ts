@@ -10,7 +10,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SignupComponent } from './pages/signup/signup.component';
 import { SubmitInbodyComponent } from './pages/submit-inbody/submit-inbody.component';
-import { TokenInterceptor } from './shared/services/interceptors/auth-intercepter.service';
+import { TokenInterceptor } from './shared/interceptors/auth-intercepter.service';
+import { DietRequestsComponent } from './pages/diet-requests/diet-requests.component';
+import { SubmitDietPlanComponent } from './pages/submit-diet-plan/submit-diet-plan.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { TokenInterceptor } from './shared/services/interceptors/auth-intercepte
     LoginComponent,
     SignupComponent,
     SubmitInbodyComponent,
+    DietRequestsComponent,
+    SubmitDietPlanComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/shared/services/services/auth/auth.service';
+import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -13,7 +14,8 @@ export class SignupComponent implements OnInit {
   constructor(
     private readonly fb: FormBuilder,
     private readonly authService: AuthService,
-    private readonly toastrService: ToastrService
+    private readonly toastrService: ToastrService,
+    private readonly router: Router
   ) {}
 
   ngOnInit() {
@@ -41,7 +43,9 @@ export class SignupComponent implements OnInit {
         .signup(this.signupForm.value, this.signupForm.value.userType)
         .subscribe({
           next: (res: any) => {
-            console.info(res.message);
+            if (this.signupForm.value.userType === 'user')
+              this.router.navigate(['submit-inbody']);
+            else this.router.navigate(['diet-plan-request']);
             this.authService.saveAuthData(res.token);
           },
           error: (error) => {

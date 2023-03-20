@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { InbodyService } from 'src/app/shared/services/services/inbody/inbody.service';
+import { InbodyService } from '../../shared/services/inbody/inbody.service';
 
 @Component({
   selector: 'app-submit-inbody',

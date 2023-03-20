@@ -1,0 +1,26 @@
+<h2>Diet Plan Requests</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>User</th>
+      <th>Requested At</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let request of dietPlanRequests">
+      <td>{{ request.id }}</td>
+      <td>{{ request.user.name }}</td>
+      <td>{{ request.requestedAt | date }}</td>
+      <td>{{ request.status }}</td>
+      <td>
+        <button class="btn btn-primary" (click)="selectRequest(request)">
+          Select
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

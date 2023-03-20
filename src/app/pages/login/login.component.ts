@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService } from 'src/app/shared/services/services/auth/auth.service';
+import { AuthService } from 'src/app/shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
           next: (res: any) => {
             if (this.loginForm.value.userType === 'user')
               this.router.navigate(['submit-inbody']);
+            else this.router.navigate(['diet-plan-request']);
             this.authService.saveAuthData(res.token);
           },
           error: (error) => {
